@@ -207,9 +207,6 @@ python notebooks/00_setup_and_download.py
 python analysis/variable_construction.py
 python notebooks/03_decile_backtest.py
 ```
-python analysis/variable_construction.py
-python notebooks/03_decile_backtest.py
-```
 
 ---
 
