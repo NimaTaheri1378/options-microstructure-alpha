@@ -245,6 +245,9 @@ Following Chen & Zimmerman (2022): predictors observed at month *t* → sorted i
 ### Transaction Costs
 All strategies report returns net of **20bps round-trip** (10bps each way per monthly rebalance).
 
+### Win Rate (Batting Average)
+Win Rate = **% of months where the L/S portfolio return > 0**. This is a strategy-level metric — a month "wins" if the aggregate long book outperformed the aggregate short book that calendar month, regardless of magnitude. Random chance = 50%. This metric is also known as the *batting average* in practitioner literature.
+
 ### Controls (16 variables)
 Size, B/M, momentum (12-month skip 1), reversal, IVOL, Amihud illiquidity, turnover, institutional ownership, beta, MAX, analyst dispersion, SUE, bid-ask spread, FF48 industry, short interest ratio, high-constraint flag.
 
