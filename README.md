@@ -144,21 +144,46 @@ All data accessed via [WRDS](https://wrds-www.wharton.upenn.edu/). Intermediate 
 
 ---
 
-## 🚀 Quick Start (Google Colab)
+## 🚀 Quick Start
 
-```bash
-# 1. Upload project to Google Drive under /Suresh2.github/smart-money-options/
+**Requires a [WRDS account](https://wrds-www.wharton.upenn.edu/).**
 
-# 2. Run data download (requires WRDS account)
-# Execute: notebooks/00_setup_and_download.py
+### Google Colab (recommended)
 
-# 3. Build analysis panel
-# Execute: analysis/variable_construction.py
+Run these three cells in order:
 
-# 4. Run all 42 strategies
-# Execute: notebooks/03_decile_backtest.py
+```python
+# Cell 1 — Install and clone
+!pip install wrds pandas numpy statsmodels -q
+!git clone https://github.com/NimaTaheri1378/options-microstructure-alpha.git
+%cd options-microstructure-alpha
+```
+
+```python
+# Cell 2 — Set WRDS credentials (password box appears below)
+import os, getpass
+os.environ['WRDS_USERNAME'] = 'your_wrds_username'
+os.environ['WRDS_PASSWORD'] = getpass.getpass('WRDS Password: ')
+```
+
+```python
+# Cell 3 — Download data, build panel, run all 42 strategies
+%run notebooks/00_setup_and_download.py
+%run analysis/variable_construction.py
+%run notebooks/03_decile_backtest.py
 # → Outputs: results/performance/all_strategies_decile_summary.csv
 # → Outputs: results/figures/top5_decile_cumulative.png
+```
+
+### Local
+
+```bash
+git clone https://github.com/NimaTaheri1378/options-microstructure-alpha.git
+cd options-microstructure-alpha
+pip install -r requirements.txt
+python notebooks/00_setup_and_download.py
+python analysis/variable_construction.py
+python notebooks/03_decile_backtest.py
 ```
 
 ---
