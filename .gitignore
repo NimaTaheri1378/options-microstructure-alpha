@@ -1,0 +1,38 @@
+# Cache / Data
+data/cache/
+data/sample/*.parquet
+*.parquet
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment
+.env
+.venv/
+venv/
+*.pgpass
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Output (regenerable)
+results/figures/*.png
+results/figures/*.pdf
+results/tables/*.tex
+results/performance/*.csv
