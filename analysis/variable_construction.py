@@ -39,7 +39,7 @@ def build_panel(consensus_path=None):
     iv = load('iv_linked_final');     be = load('be_panel')
     io = load('io_quarterly');        ff = load('ff_daily_final')
     ibes = load('ibes_linked');       si = load('short_interest')
-    names = load('crsp_names');       delist = load('crsp_delist')
+    names = load('crsp_names_compact');  delist = load('crsp_delist')
 
     for df in [crsp, opt, iv, ff]:
         df['date'] = pd.to_datetime(df['date'])

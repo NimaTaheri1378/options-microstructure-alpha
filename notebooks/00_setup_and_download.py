@@ -500,16 +500,16 @@ except Exception as e:
 ###############################################################################
 print(f"\n[11] SAVING FINAL FILES [{elapsed():.1f}m]")
 
-save_cache(opt_linked,                             'opt_linked_final')
-save_cache(iv_linked,                              'iv_linked_final')
-save_cache(crsp_daily,                             'crsp_daily_final')
-save_cache(crsp_names[['permno','siccd','exchcd']], 'crsp_names')
-save_cache(comp_ccm[['permno','fyear_end','be']],  'be_panel')
-save_cache(io_qtr,                                 'io_quarterly')
-save_cache(ff_daily,                               'ff_daily_final')
-save_cache(ibes_stats,                             'ibes_linked')
-save_cache(short_int,                              'short_interest')
-save_cache(crsp_delist,                            'crsp_delist')
+save_cache(opt_linked,                                  'opt_linked_final')
+save_cache(iv_linked,                                   'iv_linked_final')
+save_cache(crsp_daily,                                  'crsp_daily_final')
+save_cache(crsp_names[['permno','siccd','exchcd']],     'crsp_names_compact')  # for variable_construction
+save_cache(comp_ccm[['permno','fyear_end','be']],       'be_panel')
+save_cache(io_qtr,                                      'io_quarterly')
+save_cache(ff_daily,                                    'ff_daily_final')
+save_cache(ibes_stats,                                  'ibes_linked')
+save_cache(short_int,                                   'short_interest')
+save_cache(crsp_delist,                                 'crsp_delist')
 
 print(f"""
 {'='*60}
