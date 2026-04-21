@@ -11,18 +11,18 @@
 
 All strategies use **monthly decile sorts** with a strict no-look-ahead timing convention: signals observed at end of month *t* predict returns realized in month *t+1*.
 
-| # | Strategy | Ann. Return | Sharpe | Carhart α | α t-stat | Max DD | Win Rate |
-|---|----------|-------------|--------|-----------|----------|--------|----------|
-| 1 | **LS_high_informed_score** | 36.5% | 1.63 | 32.4% | 8.91 | −19.5% | 66.9% |
-| 2 | **LS_high_pc_ratio** | 34.7% | 1.63 | 32.5% | 8.86 | −15.6% | 65.7% |
-| 3 | **LS_low_pc_ratio** | 31.7% | 1.56 | 29.9% | 7.95 | −20.8% | 65.7% |
-| 4 | **VRP D1-D10 (EW)** | 19.0% | 1.53 | 17.2% | 7.84 | −14.9% | 69.7% |
-| 5 | **LS_low_abnormal_vol** | 30.7% | 1.51 | 28.1% | 6.72 | −26.5% | 65.3% |
-| 6 | **LS_high_sentiment** | 28.4% | 1.50 | 26.1% | 7.29 | −25.2% | 66.0% |
-| 7 | **LS_high_vrp** | 51.5% | 1.49 | 48.4% | 9.22 | −28.6% | 67.4% |
-| 8 | **IV Spread D1-D10 (EW)** | 14.4% | 1.37 | 12.0% | 5.00 | −12.8% | 66.6% |
-| 9 | **LS_low_ivol** | 22.1% | 1.37 | 19.6% | 7.35 | −20.9% | 66.0% |
-| 10 | **LS_low_os_ratio** | 26.6% | 1.34 | 23.5% | 6.85 | −35.4% | 63.7% |
+| # | Strategy | Ann. Return | Sharpe | Sortino | Carhart α | α t-stat | Max DD | Win Rate |
+|---|----------|-------------|--------|---------|-----------|----------|--------|----------|
+| 1 | **LS_high_informed_score** | 36.5% | 1.63 | 3.30 | 32.4% | 8.91 | −19.5% | 66.9% |
+| 2 | **LS_high_pc_ratio** | 34.7% | 1.63 | 3.47 | 32.5% | 8.86 | −15.6% | 65.7% |
+| 3 | **LS_low_pc_ratio** | 31.7% | 1.56 | 3.01 | 29.9% | 7.95 | −20.8% | 65.7% |
+| 4 | **VRP D1-D10 (EW)** | 19.0% | 1.53 | 2.73 | 17.2% | 7.84 | −14.9% | 69.7% |
+| 5 | **LS_low_abnormal_vol** | 30.7% | 1.51 | 3.48 | 28.1% | 6.72 | −26.5% | 65.3% |
+| 6 | **LS_high_sentiment** | 28.4% | 1.50 | 2.89 | 26.1% | 7.29 | −25.2% | 66.0% |
+| 7 | **LS_high_vrp** | 51.5% | 1.49 | 2.85 | 48.4% | 9.22 | −28.6% | 67.4% |
+| 8 | **IV Spread D1-D10 (EW)** | 14.4% | 1.37 | 2.52 | 12.0% | 5.00 | −12.8% | 66.6% |
+| 9 | **LS_low_ivol** | 22.1% | 1.37 | 2.14 | 19.6% | 7.35 | −20.9% | 66.0% |
+| 10 | **LS_low_os_ratio** | 26.6% | 1.34 | 2.36 | 23.5% | 6.85 | −35.4% | 63.7% |
 
 > **All 10 strategies carry Carhart alpha t-statistics above 5.0**, indicating strong statistical significance after controlling for market, size, value, and momentum factors.
 
