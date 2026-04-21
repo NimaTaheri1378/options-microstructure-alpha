@@ -444,9 +444,23 @@ ibes_stats['sue'] = np.where(
 coverage(ibes_stats, ibes_actuals, "IBES→CRSP")
 
 ###############################################################################
-# 9. SHORT INTEREST
+# 9. CRSP DELISTING RETURNS
 ###############################################################################
-print(f"\n[9] SHORT INTEREST [{elapsed():.1f}m]")
+print(f"\n[9] CRSP DELISTING RETURNS [{elapsed():.1f}m]")
+
+crsp_delist = cached_query(f"""
+    SELECT permno, dlstdt, dlret
+    FROM crsp.dsedelist
+    WHERE dlstdt BETWEEN '{START_DATE}' AND '{END_DATE}'
+      AND dlret IS NOT NULL
+""", 'crsp_delist')
+crsp_delist['dlstdt'] = pd.to_datetime(crsp_delist['dlstdt'])
+print(f"  Delisting returns: {len(crsp_delist):,} obs")
+
+###############################################################################
+# 10. SHORT INTEREST
+###############################################################################
+print(f"\n[10] SHORT INTEREST [{elapsed():.1f}m]")
 
 try:
     short_int = cached_query(f"""
@@ -470,31 +484,33 @@ except Exception as e:
 ###############################################################################
 # 10. SAVE ALL FINAL FILES
 ###############################################################################
-print(f"\n[10] SAVING FINAL FILES [{elapsed():.1f}m]")
+print(f"\n[11] SAVING FINAL FILES [{elapsed():.1f}m]")
 
-save_cache(opt_linked,                        'opt_linked_final')
-save_cache(iv_linked,                         'iv_linked_final')
-save_cache(crsp_daily,                        'crsp_daily_final')
+save_cache(opt_linked,                             'opt_linked_final')
+save_cache(iv_linked,                              'iv_linked_final')
+save_cache(crsp_daily,                             'crsp_daily_final')
 save_cache(crsp_names[['permno','siccd','exchcd']], 'crsp_names')
-save_cache(comp_ccm[['permno','fyear_end','be']], 'be_panel')
-save_cache(io_qtr,                            'io_quarterly')
-save_cache(ff_daily,                          'ff_daily_final')
-save_cache(ibes_stats,                        'ibes_linked')
-save_cache(short_int,                         'short_interest')
+save_cache(comp_ccm[['permno','fyear_end','be']],  'be_panel')
+save_cache(io_qtr,                                 'io_quarterly')
+save_cache(ff_daily,                               'ff_daily_final')
+save_cache(ibes_stats,                             'ibes_linked')
+save_cache(short_int,                              'short_interest')
+save_cache(crsp_delist,                            'crsp_delist')
 
 print(f"""
 {'='*60}
 DATA ACQUISITION COMPLETE — {elapsed():.1f} min total
 {'='*60}
-  CRSP daily:      {len(crsp_daily):>12,} rows
-  Option volume:   {len(opt_linked):>12,} rows
-  IV spread:       {len(iv_linked):>12,} rows
-  Book equity:     {len(comp_ccm):>12,} rows
-  IO quarterly:    {len(io_qtr):>12,} rows
-  FF daily:        {len(ff_daily):>12,} rows
-  IBES:            {len(ibes_stats):>12,} rows
-  Short interest:  {len(short_int):>12,} rows
-  Period:          {START_DATE} → {END_DATE}
+  CRSP daily:        {len(crsp_daily):>10,} rows
+  CRSP delisting:    {len(crsp_delist):>10,} rows
+  Option volume:     {len(opt_linked):>10,} rows
+  IV spread:         {len(iv_linked):>10,} rows
+  Book equity:       {len(comp_ccm):>10,} rows
+  IO quarterly:      {len(io_qtr):>10,} rows
+  FF daily:          {len(ff_daily):>10,} rows
+  IBES:              {len(ibes_stats):>10,} rows
+  Short interest:    {len(short_int):>10,} rows
+  Period:            {START_DATE} → {END_DATE}
 {'='*60}
 → Next: %run analysis/variable_construction.py
 """)
