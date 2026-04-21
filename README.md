@@ -144,36 +144,51 @@ All data accessed via [WRDS](https://wrds-www.wharton.upenn.edu/). Intermediate 
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Reproducing the Results
 
-**Requires a [WRDS account](https://wrds-www.wharton.upenn.edu/).**
+**Requires a [WRDS account](https://wrds-www.wharton.upenn.edu/) with OptionMetrics access.**  
+Data is not included (WRDS license). First run downloads ~29 years of data and takes **2–24 hours** depending on cache state. Subsequent runs skip cached steps automatically.
 
-### Google Colab (recommended)
+### Google Colab — run these cells in order
 
-Run these three cells in order:
-
+**Cell 1 — Install and clone**
 ```python
-# Cell 1 — Install and clone
-!pip install wrds pandas numpy statsmodels -q
+!pip install wrds linearmodels pyarrow --quiet
 !git clone https://github.com/NimaTaheri1378/options-microstructure-alpha.git
 %cd options-microstructure-alpha
 ```
 
+**Cell 2 — Set your Drive path** (edit `config/settings.py`)
 ```python
-# Cell 2 — Set WRDS credentials (password box appears below)
+# Open config/settings.py and set:
+# BASE_DIR = '/content/drive/MyDrive/your-folder-name'
+```
+
+**Cell 3 — Set WRDS credentials**
+```python
 import os, getpass
 os.environ['WRDS_USERNAME'] = 'your_wrds_username'
 os.environ['WRDS_PASSWORD'] = getpass.getpass('WRDS Password: ')
 ```
 
+**Cell 4 — Download all data from WRDS** (~2–24 hours, resume-safe)
 ```python
-# Cell 3 — Download data, build panel, run all 42 strategies
 %run notebooks/00_setup_and_download.py
-%run analysis/variable_construction.py
-%run notebooks/03_decile_backtest.py
-# → Outputs: results/performance/all_strategies_decile_summary.csv
-# → Outputs: results/figures/top5_decile_cumulative.png
 ```
+
+**Cell 5 — Build the analysis panel** (~30–60 min)
+```python
+%run analysis/variable_construction.py
+```
+
+**Cell 6 — Run all 42 strategies**
+```python
+%run notebooks/03_decile_backtest.py
+# → results/performance/all_strategies_decile_summary.csv
+# → results/figures/top5_decile_cumulative.png
+```
+
+> **Resume safety:** If Colab disconnects during Cell 4, just re-run from Cell 3. Each year of OptionMetrics data is cached individually — already-completed years are skipped automatically.
 
 ### Local
 
@@ -181,7 +196,11 @@ os.environ['WRDS_PASSWORD'] = getpass.getpass('WRDS Password: ')
 git clone https://github.com/NimaTaheri1378/options-microstructure-alpha.git
 cd options-microstructure-alpha
 pip install -r requirements.txt
+# Edit config/settings.py → set BASE_DIR to your data directory
 python notebooks/00_setup_and_download.py
+python analysis/variable_construction.py
+python notebooks/03_decile_backtest.py
+```
 python analysis/variable_construction.py
 python notebooks/03_decile_backtest.py
 ```
