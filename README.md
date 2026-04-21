@@ -26,6 +26,8 @@ All strategies use **monthly decile sorts** with a strict no-look-ahead timing c
 
 > **All 10 strategies carry Carhart alpha t-statistics above 5.0**, indicating strong statistical significance after controlling for market, size, value, and momentum factors.
 
+**Reading the table:** Strategies prefixed `LS_high_*` / `LS_low_*` are **double-sort** strategies (Tier 3) — they condition jointly on both a signal and the consensus measure and hold ~70 stocks per leg. Strategies named `*_D1D10_*` are **single-signal decile sorts** (Tier 1) running on the full options universe (~690 stocks per leg). Both are reported together ranked by Sharpe for comparability; see [Strategy Types](#-strategy-types-explained) for the distinction.
+
 ---
 
 ## 🏆 Best Risk-Adjusted Strategies (Practitioner Picks)
@@ -40,9 +42,11 @@ Long stocks where call IV exceeds put IV (bullish informed flow) and short the r
 
 ### 3. LS_high_pc_ratio (Sharpe 1.63, α = 32.5%)
 A **double-sort** strategy: among stocks with the highest put-call ratios (D10), go long those with low institutional consensus (contrarian) and short those with high consensus. Max DD = −15.6%.
+> ⚠️ *Concentrated portfolio (~70 stocks per leg). Returns are academically robust but require careful liquidity assessment before scaling.*
 
 ### 4. LS_high_informed_score (Sharpe 1.63, α = 32.4%)
 Same double-sort logic applied to the composite informed trading score. Strong Sortino (3.30) indicates minimal left-tail risk.
+> ⚠️ *Concentrated portfolio (~70 stocks per leg). The high alpha reflects both genuine signal interaction and the inherent concentration of double-sort portfolios.*
 
 ### 5. PC Ratio Long/Short (Sharpe 1.17, α = 6.9%)
 Simple decile sort on put-call ratio. Win rate of 68.0% — the highest among single-signal strategies.
@@ -92,10 +96,21 @@ Tests whether the options signal premium is **differentially stronger** among co
 
 ## 🔐 Predictor Consensus Measure
 
-The **predictor consensus** variable aggregates institutional forecaster agreement from Chen & Zimmerman's (2022) cross-sectional predictor database. It captures the degree to which institutional positioning converges on a given stock-month.
+### What it is
+The **predictor consensus** (μ) aggregates agreement across institutional forecasters using the Chen & Zimmerman (2022) cross-sectional predictor database. For each stock-month, μ measures the degree to which a broad set of academic return predictors point in the same direction — a high μ means the institutional consensus strongly agrees on expected return; a low μ means forecasters disagree or diverge.
 
-> **This variable is proprietary and not included in this repository.**  
-> For access to the consensus measure construction methodology or the data itself, please contact:  
+### Why it matters — the core research finding
+The central result of this project is **not** that options signals predict returns (that is well-established). It is that **options signals are substantially more informative when they conflict with institutional consensus**:
+
+- Among high-consensus stocks (μ = D10), options signals add modest incremental alpha (~5–12%)
+- Among low-consensus stocks (μ = D1), the same options signals generate **3–5× larger alpha** (28–48%)
+
+This is consistent with the hypothesis that **options-informed traders possess private information that is most valuable precisely when it contradicts the prevailing institutional view.** When everyone agrees, the option market's edge is already priced. When the option market disagrees with the consensus, that disagreement is a stronger signal.
+
+This interaction — options informativeness × consensus divergence — is the novel contribution of this research relative to the existing options microstructure literature.
+
+> **The consensus variable is proprietary and not included in this repository.**  
+> For access to the construction methodology or data, please contact:  
 > 📧 **nimataheri1378@gmail.com**
 
 ---
