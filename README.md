@@ -151,22 +151,28 @@ Data is not included (WRDS license). First run downloads ~29 years of data and t
 
 ### Google Colab — run these cells in order
 
-**Cell 1 — Install and clone**
+**Cell 1 — Mount Drive, install, clone**
 ```python
+from google.colab import drive
+drive.mount('/content/drive')
+
 !pip install wrds linearmodels pyarrow --quiet
 !git clone https://github.com/NimaTaheri1378/options-microstructure-alpha.git
 %cd options-microstructure-alpha
 ```
 
-**Cell 2 — Set your Drive path** (edit `config/settings.py`)
+**Cell 2 — Set your data folder** (change the path to match your Google Drive)
 ```python
-# Open config/settings.py and set:
-# BASE_DIR = '/content/drive/MyDrive/your-folder-name'
+import os
+# Default: creates a new folder in your Drive root.
+# Change this to an existing folder if you already have cached data.
+os.environ['BASE_DIR'] = '/content/drive/MyDrive/options-microstructure-alpha'
+print(f"Data will be saved to: {os.environ['BASE_DIR']}")
 ```
 
 **Cell 3 — Set WRDS credentials**
 ```python
-import os, getpass
+import getpass
 os.environ['WRDS_USERNAME'] = 'your_wrds_username'
 os.environ['WRDS_PASSWORD'] = getpass.getpass('WRDS Password: ')
 ```

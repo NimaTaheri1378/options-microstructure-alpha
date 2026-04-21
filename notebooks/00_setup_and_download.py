@@ -39,7 +39,21 @@ warnings.filterwarnings('ignore')
 
 # ── Paths from config ─────────────────────────────────────────────────────────
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from config.settings import BASE_DIR, CACHE_DIR, ensure_dirs
+from config.settings import ensure_dirs
+import config.settings as _cfg
+
+# Allow BASE_DIR override from environment (set in Colab before running)
+_base = os.environ.get('BASE_DIR')
+if _base:
+    _cfg.BASE_DIR   = _base
+    _cfg.CACHE_DIR  = os.path.join(_base, 'data', 'cache')
+    _cfg.OUTPUT_DIR = os.path.join(_base, 'results')
+    _cfg.FIG_DIR    = os.path.join(_cfg.OUTPUT_DIR, 'figures')
+    _cfg.TABLE_DIR  = os.path.join(_cfg.OUTPUT_DIR, 'tables')
+    _cfg.PERF_DIR   = os.path.join(_cfg.OUTPUT_DIR, 'performance')
+
+BASE_DIR  = _cfg.BASE_DIR
+CACHE_DIR = _cfg.CACHE_DIR
 ensure_dirs()
 
 START_YEAR = 1996
