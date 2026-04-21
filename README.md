@@ -172,7 +172,7 @@ print(f"Data will be saved to: {os.environ['BASE_DIR']}")
 
 **Cell 3 — Set WRDS credentials**
 ```python
-import getpass
+import os, getpass
 os.environ['WRDS_USERNAME'] = 'your_wrds_username'
 os.environ['WRDS_PASSWORD'] = getpass.getpass('WRDS Password: ')
 ```
